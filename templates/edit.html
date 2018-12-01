@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<form method="POST" action="/edit_movie">
+	<table>
+		<h1>Edit a Movie</h1>
+		<tbody>
+			<tr>
+				<input type="hidden" name="id" value="{{ movie.id }}"/>
+				<td><label>Title: </td></label>
+				<td><input type="text" name="title" value="{{movie.title}}" /></td>
+				<td class="error">{{title_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Year: </td></label>
+				<td><input type="text" name="year" value="{{movie.year}}" /></td>
+				<td class="error">{{year_error}}</td>
+			</tr>			
+			<tr>
+				<td><label>Origin: </td></label>
+				<td><input type="text" name="origin" value="{{movie.origin}}" /></td>
+				<td class="error">{{origin_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Director: </td></label>
+				<td><input type="text" name="director" value="{{movie.director}}" /></td>
+				<td class="error">{{director_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Cast: </td></label>
+				<td><input type="text" name="cast" value="{{movie.cast}}" /></td>
+				<td class="error">{{cast_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Genre: </td></label>
+				<td><input type="text" name="genre" value="{{movie.genre}}" /></td>
+				<td class="error">{{genre_error}}</td>
+			</tr>
+			<tr>
+				<td><label>WikiPage: </td></label>
+				<td><input type="text" name="wiki" value="{{movie.wiki}}" /></td>
+				<td class="error">{{wiki_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Plot: </td></label>
+				<td><textarea name="plot">{{movie.plot}}</textarea></td>
+				<td class="error">{{plot_error}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" value="Update Movie" />
+</form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Movies</title>
+        <link href="{{ url_for('static',filename='style.css') }}" type="text/css" rel="stylesheet" />
+    </head>
+    <body>
+      <div id="navigation">
+        <a href="/">Home</a>
+        <a href="/add_movie">Add Movie</a>
+        <a href="/search">Movie Search</a>
+        <a href="/upload">Upload CSV</a>
+        <div style='float: right'>
+          {% if 'user' in session %}
+            {{ session['user'] }}
+            <form action="/logout" method="post" id='logout'>
+              <input type="submit" value="Log Out" />
+            </form>
+          {% else %}
+            <a href="login">login</a> | <a href="register">register</a>
+          {% endif %}
+        </div>
+      </div>
+
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class=flashes>
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        {% block content %}
+        {% endblock %}
+
+    </body>
+</html>

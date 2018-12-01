@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if movielist|length > 0 %}
+
+  <table>
+    <h2 class="header">My Movie List</h2>
+    {% for movie in movielist: %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>
+          <form action="/edit" method="POST">            
+            <input type="hidden" name="edit-movie" value="{{ movie.id }}"/>
+            <input type="submit" value="Edit"/>
+          </form>
+        </td>
+        <td>
+          <form action="/remove" method="POST">
+            <input type="hidden" name="remove-movie" value="{{ movie.id }}"/>
+            <input type="submit" value="Remove"/>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+</table>
+{% endif %}
+
+{% if error %}
+  <p class='error'>{{ error }}</p>
+{% endif %}
+{% endblock %}

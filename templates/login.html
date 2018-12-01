@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<h1>Movie Login</h1>
+
+<p>Don't have an account?! You can <a href="/signup">signup</a> for one!</p>
+<form action="/login" method="POST">
+	<table>
+		<tr>
+			<td><label for="email">Email</label></td>
+			<td><input name="email" type="text" value="{{email}}"></td>
+			<td class="error">{{u_error}}</td>
+		</tr>
+		<tr>
+			<td><label for="password">Password</label></td>
+			<td><input name="password" type="password"></td>
+			<td class="error">{{pw_error}}</td>
+		</tr>
+	</table>
+	<input type="submit" value="Sign In">
+</form>
+
+{% endblock %}

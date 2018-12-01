@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+</br>
+<form method="POST">
+	<label for categories>Search By:</label>
+	<select name="category">
+		<option value="title" selected>Title</option>
+		<option value="year">Year</option>
+		<option value="origin">Origin</option>
+		<option value="director">Director</option>
+		<option value="cast">Cast</option>
+		<option value="genre">Genre</option>
+		<option value="plot">Plot</option>
+	</select>
+	<input type="text" name="searchTerm" />
+	<input type="submit" value="Search" />
+</form>
+
+  <table>
+    {% for movie in movie_list: %}
+      <tr>
+        <td>{{ movie.title }}</td>
+        <td>
+          <form action="/edit" method="POST">            
+            <input type="hidden" name="edit-movie" value="{{ movie.id }}"/>
+            <input type="submit" value="Edit"/>
+          </form>
+        </td>
+        <td>
+          <form action="/remove" method="POST">
+            <input type="hidden" name="remove-movie" value="{{ movie.id }}"/>
+            <input type="submit" value="Remove"/>
+          </form>
+        </td>
+      </tr>
+    {% endfor %}
+</table>
+
+
+
+
+{% endblock %}

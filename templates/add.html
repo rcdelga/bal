@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<form method="POST" action="/add_movie">
+	<table>
+		<h1>Add a Movie</h1>
+		<tbody>
+			<tr>
+				<td><label>Title: </td></label>
+				<td><input type="text" name="title" /></td>
+				<td class="error">{{title_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Year: </td></label>
+				<td><input type="text" name="year" /></td>
+				<td class="error">{{year_error}}</td>
+			</tr>			
+			<tr>
+				<td><label>Origin: </td></label>
+				<td><input type="text" name="origin" /></td>
+				<td class="error">{{origin_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Director: </td></label>
+				<td><input type="text" name="director" /></td>
+				<td class="error">{{director_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Cast: </td></label>
+				<td><input type="text" name="cast" /></td>
+				<td class="error">{{cast_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Genre: </td></label>
+				<td><input type="text" name="genre" /></td>
+				<td class="error">{{genre_error}}</td>
+			</tr>
+			<tr>
+				<td><label>WikiPage: </td></label>
+				<td><input type="text" name="wiki" /></td>
+				<td class="error">{{wiki_error}}</td>
+			</tr>
+			<tr>
+				<td><label>Plot: </td></label>
+				<td><textarea name="plot"></textarea></td>
+				<td class="error">{{plot_error}}</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" value="Add Movie" />
+</form>
+
+{% endblock %}
