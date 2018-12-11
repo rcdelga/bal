@@ -6,6 +6,7 @@ import hashlib
 import string
 import csv
 from werkzeug.datastructures import FileStorage
+from werkzeug.utils import secure_filename
 import codecs
 
 
@@ -288,24 +289,31 @@ def search():
 def upload():
 	if request.method == 'POST':
 		file = request.files['inputFile']
-		FileStorage(file).save("/upload.csv")
-		newFile = open("/upload.csv", "rb")
+		# print(f"{file._file} some thing here so that we know")
+
+		bytes_str = file._file.read()
+		string_var = bytes_str.decode('UTF-8')
+
+		# FileStorage(file).save("/upload.csv")
+		# newFile = open("/upload.csv", "rb")
+
 		try:
-			with open("/upload.csv", encoding="utf8") as csvfile:
-				spamreader = csv.reader(csvfile, delimiter=',')
-				firstline = True
-				for row in spamreader:
-					if firstline:
-						firstline= False
-						continue
-					else:
-						new_movie = Movie(row[1],row[0],row[2],row[3],row[4],row[5],row[6],row[7],logged_in_user())
-						db.session.add(new_movie)
-						db.session.commit()					
+
+			reader = csv.reader(string_var.splitlines(), delimiter=',')
+			firstline = True
+			for row in reader:
+				if firstline:
+					firstline= False
+					continue
+				else:
+					new_movie = Movie(row[1],row[0],row[2],row[3],row[4],row[5],row[6],row[7],logged_in_user())
+					db.session.add(new_movie)
+					db.session.commit()					
 		except:
 			error = "Failed to Upload"
 			return render_template("index.html",error=error)
-		return redirect("/")
+		return redirect("/")	
+
 	return render_template("upload.html")
 
 
