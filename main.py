@@ -289,31 +289,29 @@ def search():
 def upload():
 	if request.method == 'POST':
 		file = request.files['inputFile']
-		# print(f"{file._file} some thing here so that we know")
-
-		bytes_str = file._file.read()
-		string_var = bytes_str.decode('UTF-8')
-
-		# FileStorage(file).save("/upload.csv")
-		# newFile = open("/upload.csv", "rb")
-
 		try:
-
-			reader = csv.reader(string_var.splitlines(), delimiter=',')
-			firstline = True
+			fileAsBytes = file._file.read()
+			fileAsString = fileAsBytes.decode('UTF-8')
+			fileAsString_Listed = fileAsString.splitlines()
+			moviesToAdd = []
+			reader = csv.DictReader(fileAsString_Listed, delimiter=',')
 			for row in reader:
-				if firstline:
-					firstline= False
-					continue
-				else:
-					new_movie = Movie(row[1],row[0],row[2],row[3],row[4],row[5],row[6],row[7],logged_in_user())
-					db.session.add(new_movie)
-					db.session.commit()					
+				new_movie = Movie(row['Title'],
+								row['Release Year'],
+								row['Origin/Ethnicity'],
+								row['Director'],
+								row['Cast'],
+								row['Genre'],
+								row['Wiki Page'],
+								row['Plot'],
+								logged_in_user())
+				moviesToAdd.append(new_movie)
+			db.session.add_all(moviesToAdd)
+			db.session.commit()
 		except:
-			error = "Failed to Upload"
+			error = "Failed to upload file."
 			return render_template("index.html",error=error)
-		return redirect("/")	
-
+		return redirect("/")
 	return render_template("upload.html")
 
 
